@@ -325,6 +325,7 @@
           <state>$PROJ_DIR$\..\..\..\openapps\tohlone\</state>
           <state>$PROJ_DIR$\..\..\..\openapps\uecho\</state>
           <state>$PROJ_DIR$\..\..\..\openapps\cstorm\</state>
+          <state>$PROJ_DIR$\..\..\..\openapps\cexample\</state>
           <state>$PROJ_DIR$\..\..\..\openapps\rrt\</state>
           <state>$PROJ_DIR$\..\..\..\openapps\uinject\</state>
         </option>
@@ -2156,6 +2157,15 @@
       </file>
       <file>
         <name>$PROJ_DIR$\..\..\..\openapps\c6t\c6t.h</name>
+      </file>
+    </group>
+    <group>
+      <name>cexample</name>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\openapps\cexample\cexample.c</name>
+      </file>
+      <file>
+        <name>$PROJ_DIR$\..\..\..\openapps\cexample\cexample.h</name>
       </file>
     </group>
     <group>
