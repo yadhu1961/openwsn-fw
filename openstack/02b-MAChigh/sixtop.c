@@ -715,7 +715,7 @@ void sixtop_checkSchedule() {
         ((asn[0]+256*asn[1]+65536*asn[2])/schedule_getFrameLength())%50 == 2 || \
         ((asn[0]+256*asn[1]+65536*asn[2])/schedule_getFrameLength())%50 == 3
         ) {
-        cstorm_generateNewTraffic();
+        cstorm_generateNewTraffic(0);
     } else {
         cstorm_stop();
     }

@@ -57,8 +57,9 @@ void cstorm_init(void) {
    cstorm_vars.packetId[1]                = 0;
    opencoap_register(&cstorm_vars.desc);
    
+   cstorm_vars.packet_per_slotframe       = PACKET_PER_SLOTFRAME;
    //start a periodic timer
-   cstorm_vars.period           = SLOTFRAME_LENGTH * SLOTDURATION_MS / PACKET_PER_SLOTFRAME;
+   cstorm_vars.period           = SLOTFRAME_LENGTH * SLOTDURATION_MS / cstorm_vars.packet_per_slotframe;
 //   cstorm_vars.period           = SLOTFRAME_LENGTH * SLOTDURATION_MS / (1+openrandom_get16b()%6); 
    cstorm_vars.timerId                    = opentimers_start(
       cstorm_vars.period,
@@ -66,14 +67,19 @@ void cstorm_init(void) {
       cstorm_timer_cb
    );
    
-//   if (
-//       idmanager_getMyID(ADDR_64B)->addr_64b[7] != 0x06 && \
-//       idmanager_getMyID(ADDR_64B)->addr_64b[7] != 0x07 && \
-//       idmanager_getMyID(ADDR_64B)->addr_64b[7] != 0x08 && \
-//       idmanager_getMyID(ADDR_64B)->addr_64b[7] != 0x09  
-//   ) {
-//       opentimers_stop(cstorm_vars.timerId);
-//   }
+   cstorm_vars.timerId_newTraffic            = opentimers_start(
+      10000,
+      TIMER_PERIODIC,TIME_MS,
+      cstorm_generateNewTraffic
+   );
+   
+   if (
+       idmanager_getMyID(ADDR_64B)->addr_64b[7] != 0x54 && \
+       idmanager_getMyID(ADDR_64B)->addr_64b[7] != 0x60
+   ) {
+       opentimers_stop(cstorm_vars.timerId);
+       opentimers_stop(cstorm_vars.timerId_newTraffic);
+   }
 }
 
 uint16_t cstorm_getPeriod() {
@@ -277,17 +283,24 @@ void cstorm_sendDone(OpenQueueEntry_t* msg, owerror_t error) {
 
 }
 
-void cstorm_generateNewTraffic() {
+void cstorm_generateNewTraffic(opentimer_id_t id) {
+    if (
+        cstorm_vars.packet_per_slotframe          == 44 ||
+        schedule_getNumOfSlotsByType(CELLTYPE_TX) == 44
+    ){
+        return;
+    }
 //   cstorm_vars.period           = SLOTFRAME_LENGTH * SLOTDURATION_MS / PACKET_PER_SLOTFRAME; 
    // generate next packet with random interval
-   cstorm_vars.period = SLOTFRAME_LENGTH * SLOTDURATION_MS / (3+openrandom_get16b()%3); 
-   // set cstorm packet generating timer
-   opentimers_setPeriod(
-      cstorm_vars.timerId,
-      TIME_MS,
-      cstorm_vars.period
-   );
-   opentimers_restart(cstorm_vars.timerId);
+//   cstorm_vars.period = SLOTFRAME_LENGTH * SLOTDURATION_MS / (3+openrandom_get16b()%3); 
+     cstorm_vars.period = SLOTFRAME_LENGTH * SLOTDURATION_MS / (cstorm_vars.packet_per_slotframe++); 
+     // set cstorm packet generating timer
+     opentimers_setPeriod(
+        cstorm_vars.timerId,
+        TIME_MS,
+        cstorm_vars.period
+     );
+     opentimers_restart(cstorm_vars.timerId);
 }
 
 void cstorm_stop() {
