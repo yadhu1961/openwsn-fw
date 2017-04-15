@@ -11,6 +11,8 @@
 #include "idmanager.h"
 #include "openqueue.h"
 #include "neighbors.h"
+#include "cbor.h"
+#include "byteorder.h"
 
 //=========================== defines =========================================
 
@@ -36,7 +38,16 @@ void    c6t_sendDone(
 
 void c6t_init() {
    if(idmanager_getIsDAGroot()==TRUE) return; 
-   
+
+   //Yadhu added starts here
+   unsigned char data[1024] = {0};
+   cbor_stream_t stream;
+   memset(data,0x00,1024);
+   cbor_init(&stream, data, sizeof(data));
+
+   cbor_serialize_int(&stream,30);
+   //Yadhu added ends here
+
    // prepare the resource descriptor for the /6t path
    c6t_vars.desc.path0len            = sizeof(c6t_path0)-1;
    c6t_vars.desc.path0val            = (uint8_t*)(&c6t_path0);

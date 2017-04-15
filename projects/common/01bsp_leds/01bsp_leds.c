@@ -24,7 +24,8 @@ void some_delay(void);
 int mote_main(void) {uint8_t i;
    
    board_init();
-   
+   while(1)
+   {
    // error LED functions
    leds_error_on();          some_delay();
    leds_error_off();         some_delay();
@@ -64,9 +65,7 @@ int mote_main(void) {uint8_t i;
    for (i=0;i<9;i++) {
       leds_circular_shift(); some_delay();
    }
-   
-   // reset the board, so the program starts running again
-   board_reset();
+   }
    
    return 0;
 }

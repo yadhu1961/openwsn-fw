@@ -103,6 +103,25 @@ for a in apps:
     sources_c     += [os.path.join(a,a+'.c')]
     sources_h     += [os.path.join(a,a+'.h')]
 
+#Yadhu additions start here
+
+print sources_c
+
+print sources_h
+
+sources_c += [os.path.join('c6t/cbor.c')]
+
+sources_h += [os.path.join('c6t/cbor.h')]
+
+sources_h += [os.path.join('c6t/byteorder.h')]
+
+#print sources_c
+
+#print sources_h
+
+#Yadhu additions ends here.
+
+
 #===== build the openapps library
 
 if localEnv['board']=='python':

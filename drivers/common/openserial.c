@@ -238,6 +238,25 @@ owerror_t openserial_printSniffedPacket(uint8_t* buffer, uint8_t length, uint8_t
     return E_SUCCESS;
 }
 
+owerror_t openserial_printf(uint8_t *buffer,uint8_t length)
+{
+    uint8_t i;
+    INTERRUPT_DECLARATION();
+
+    DISABLE_INTERRUPTS();
+
+    openserial_vars.outputBufFilled = TRUE;
+    outputHdlcOpen();
+    outputHdlcWrite(SERFRAME_MOTE2PC_PRINTF);
+    for (i=0;i<length;i++)
+    {
+       outputHdlcWrite(buffer[i]);
+    }
+    outputHdlcClose();
+    ENABLE_INTERRUPTS();
+    return E_SUCCESS;
+}
+
 //===== retrieving inputBuffer
 
 uint8_t openserial_getInputBufferFilllevel() {

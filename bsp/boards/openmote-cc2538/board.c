@@ -70,7 +70,8 @@ void board_init(void) {
 
    leds_init();
    debugpins_init();
-   button_init();
+   //Yadhu commented this line temporarily since this as causing a SIGTRAP with jlink
+   //button_init();
    bsp_timer_init();
    radiotimer_init();
    uart_init();

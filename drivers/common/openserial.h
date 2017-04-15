@@ -50,6 +50,7 @@ enum {
 #define SERFRAME_MOTE2PC_CRITICAL                ((uint8_t)'C')
 #define SERFRAME_MOTE2PC_REQUEST                 ((uint8_t)'R')
 #define SERFRAME_MOTE2PC_SNIFFED_PACKET          ((uint8_t)'P')
+#define SERFRAME_MOTE2PC_PRINTF                     ((uint8_t)'F') //Added for debug prints
 
 // frames sent PC->mote
 #define SERFRAME_PC2MOTE_SETROOT                 ((uint8_t)'R')
@@ -163,6 +164,9 @@ bool      debugPrint_outBufferIndexes(void);
 // interrupt handlers
 void      isr_openserial_rx(void);
 void      isr_openserial_tx(void);
+
+//For debug prints
+owerror_t openserial_printf(uint8_t *s,uint8_t len);
 
 /**
 \}

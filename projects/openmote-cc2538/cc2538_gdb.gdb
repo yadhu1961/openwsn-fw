@@ -6,9 +6,10 @@ monitor flash device = CC2538SF53
 monitor flash breakpoints = 1
 monitor flash download = 1
 monitor reset
-load
-monitor reset
 monitor halt
-break main
-continue
+load build/openmote-cc2538_armgcc/projects/common/01bsp_leds_prog
+
+
+
+
 

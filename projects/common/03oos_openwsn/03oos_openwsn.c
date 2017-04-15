@@ -17,6 +17,8 @@ int mote_main(void) {
    CRYPTO_ENGINE.init();
    scheduler_init();
    openstack_init();
+
+   openserial_printf("Yadhunandana came from temple",29);
    
    // indicate
    
@@ -24,5 +26,7 @@ int mote_main(void) {
    scheduler_start();
    return 0; // this line should never be reached
 }
+
+
 
 void sniffer_setListeningChannel(uint8_t channel){return;}
