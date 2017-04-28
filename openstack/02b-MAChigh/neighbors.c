@@ -546,12 +546,12 @@ neighbors_getNeighborInfo function is used by the application layer to get neigh
 \returns TRUE if this function sucessful, FALSE otherwise.
 */
 
-bool neighbors_getNeighborInfo(uint8_t index,neighborRow_t *tmp) {
+bool neighbors_getNeighborInfo(uint8_t index,neighborRow_t **tmp) {
 
-  if(neighbors_getNumNeighbors()-1 < index)
+  if( index+1 > neighbors_getNumNeighbors())
     return FALSE;
-
-  memcpy(tmp,&(neighbors_vars.neighbors[index]),sizeof(neighborRow_t));
+  else
+  *tmp = &(neighbors_vars.neighbors[index]);
   return TRUE;
 }
 

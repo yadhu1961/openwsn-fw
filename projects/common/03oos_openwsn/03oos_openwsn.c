@@ -11,17 +11,14 @@
 #include "opendefs.h"
 
 int mote_main(void) {
-   
+
    // initialize
    board_init();
    CRYPTO_ENGINE.init();
    scheduler_init();
    openstack_init();
-
-   openserial_printf("Yadhunandana came from temple",29);
-   
    // indicate
-   
+
    // start
    scheduler_start();
    return 0; // this line should never be reached

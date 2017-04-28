@@ -166,7 +166,7 @@ void      isr_openserial_rx(void);
 void      isr_openserial_tx(void);
 
 //For debug prints
-owerror_t openserial_printf(uint8_t *s,uint8_t len);
+owerror_t openserial_printf(char *s,uint8_t len);
 
 /**
 \}

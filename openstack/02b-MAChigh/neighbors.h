@@ -58,7 +58,7 @@ void          neighbors_init(void);
 dagrank_t     neighbors_getNeighborRank(uint8_t index);
 uint8_t       neighbors_getNumNeighbors(void);
 uint16_t      neighbors_getLinkMetric(uint8_t index);
-bool           neighbors_getNeighborInfo(uint8_t,neighborRow_t*);            //Yadhu added this
+bool           neighbors_getNeighborInfo(uint8_t,neighborRow_t**);            //Yadhu added this
 open_addr_t*  neighbors_getKANeighbor(uint16_t kaPeriod);
 bool          neighbors_getNeighborNoResource(uint8_t index);
 // setters

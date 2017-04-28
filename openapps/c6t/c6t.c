@@ -92,7 +92,7 @@ owerror_t c6t_receive(
       case COAP_CODE_REQ_PUT:
          // add a slot
 
-         openserial_printf(&(msg->payload[0]),1);
+         openserial_printf((char *)&(msg->payload[0]),1);
 
          uint8_t neighbor_count = neighbors_getNumNeighbors();
          char msg_local[40];
@@ -101,14 +101,14 @@ owerror_t c6t_receive(
          openserial_printf(msg_local,16);
          memset(msg_local,0,40);
 
-         neighborRow_t local_neighbor;
+         neighborRow_t *local_neighbor = NULL;
 
          if(FALSE == neighbors_getNeighborInfo(msg->payload[0]-'0',&local_neighbor))
              openserial_printf("Failed to get neighbor",22);
           else {
              sprintf(msg_local,"neighbor address: ");
-             memcpy(msg_local+18,local_neighbor.addr_64b.addr_128b,16);
-             openserial_printf(msg_local,27);
+             memcpy(msg_local+18,local_neighbor->addr_64b.addr_128b,16);
+             openserial_printf(msg_local,26);
           }
 
          // reset packet payload

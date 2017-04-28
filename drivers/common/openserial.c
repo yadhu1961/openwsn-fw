@@ -238,7 +238,7 @@ owerror_t openserial_printSniffedPacket(uint8_t* buffer, uint8_t length, uint8_t
     return E_SUCCESS;
 }
 
-owerror_t openserial_printf(uint8_t *buffer,uint8_t length)
+owerror_t openserial_printf(char *buffer,uint8_t length)
 {
     uint8_t i;
     INTERRUPT_DECLARATION();
